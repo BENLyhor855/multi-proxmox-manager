@@ -1,0 +1,37 @@
+Validation on 2026-11-13 (Asia/Bangkok)
+Go 1.27.4; Node 24.22.1; MySQL 8.4.13; Angular 21.2.26 / CLI 21.2.30
+
+All-package Go race/coverage run with TEST_MYSQL_DSN set:
+	example.com/multi-proxmox-manager/cmd/api		coverage: 0.0% of statements
+	example.com/multi-proxmox-manager/cmd/create-admin		coverage: 0.0% of statements
+	example.com/multi-proxmox-manager/cmd/create-user		coverage: 0.0% of statements
+ok  	example.com/multi-proxmox-manager/internal/config	1.020s	coverage: 91.5% of statements
+	example.com/multi-proxmox-manager/internal/database		coverage: 0.0% of statements
+ok  	example.com/multi-proxmox-manager/internal/httpapi	13.123s	coverage: 74.3% of statements
+ok  	example.com/multi-proxmox-manager/internal/proxmox	1.509s	coverage: 82.5% of statements
+ok  	example.com/multi-proxmox-manager/internal/security	5.290s	coverage: 78.2% of statements
+	example.com/multi-proxmox-manager/internal/testutil		coverage: 0.0% of statements
+
+Latest HTTP API regression after duplicate/audit-failure handling updates:
+ok  	example.com/multi-proxmox-manager/internal/httpapi	11.415s	coverage: 75.2% of statements
+
+Go vet: PASS
+make build: PASS (mmp-api, create-admin, create-user)
+Concurrent CLI bootstrap: exactly 1 success + 1 refusal; 1 admin persisted
+CLI operator/viewer creation: PASS; 3 user.create audits; admin escalation refused
+npm ci: PASS
+npm run build: PASS; initial 339.14 kB raw, 91.90 kB estimated transfer
+Chromium: 4 passed in 10.9s
+  - Admin registration/disconnected status/audit/removal/logout/route guard
+  - Operator test controls
+  - Viewer read-only controls
+  - Inventory error recovery
+nginx 1.24 syntax test with temporary certificate paths: PASS
+npm audit (all dependencies): 0 vulnerabilities
+Go vulnerability scan after x/crypto and x/sys upgrades:
+No vulnerabilities found.
+
+Live PVE installations: NOT TESTED; no endpoints or credentials provided
+Ubuntu Server 24.04 clean installation: NOT EXECUTED; documented procedure supplied
+Source compiled on Debian 13, not Ubuntu
+No production deployment or GitHub push performed

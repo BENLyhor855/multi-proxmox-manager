@@ -1,0 +1,31 @@
+[Unit]
+Description=Multi-Proxmox Manager API
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=mmp
+Group=mmp
+EnvironmentFile=/etc/multi-proxmox-manager/mmp.env
+WorkingDirectory=/opt/multi-proxmox-manager
+ExecStart=/opt/multi-proxmox-manager/bin/mmp-api
+Restart=on-failure
+RestartSec=5
+
+# Hardening. API binds only to loopback; Nginx is the public entry point.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
